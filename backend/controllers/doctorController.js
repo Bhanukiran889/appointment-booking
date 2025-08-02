@@ -2,7 +2,20 @@ const Doctor = require('../models/Doctor');
 
 const getAllDoctors = async (req, res) => {
   try {
-    const doctors = await Doctor.find();
+    const search = req.query.search;
+
+    let filter = {};
+    if (search) {
+      const regex = new RegExp(search, 'i'); // case-insensitive regex
+      filter = {
+        $or: [
+          { name: { $regex: regex } },
+          { specialization: { $regex: regex } }
+        ]
+      };
+    }
+
+    const doctors = await Doctor.find(filter);
     res.json(doctors);
   } catch (err) {
     res.status(500).json({ message: 'Server Error' });

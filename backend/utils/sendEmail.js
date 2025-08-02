@@ -18,9 +18,9 @@ const sendEmail = async ({ to, subject, text }) => {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log('📩 Email sent to:', to);
+    console.log('Email sent to:', to);
   } catch (err) {
-    console.error('❌ Email failed:', err.message);
+    console.error('Email failed:', err.message);
   }
 };
 
