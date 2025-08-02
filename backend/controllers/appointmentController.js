@@ -36,11 +36,45 @@ const bookAppointment = async (req, res) => {
     await appointment.save();
 
     // Send email confirmation
+
+    const emailHtml =`
+      <div style="max-width: 600px; margin: 0 auto; padding: 24px; background-color: #ffffff; border-radius: 10px; border: 1px solid #e5e7eb; font-family: 'Segoe UI', sans-serif;">
+        <!-- Logo -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <span style="font-size: 32px; font-family: 'Pacifico', cursive; color: #2563eb;">MediCare</span>
+        </div>
+
+        <!-- Check Icon + Confirmation -->
+        <div style="text-align: center;">
+          <div style="background-color: #d1fae5; border-radius: 50%; width: 64px; height: 64px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <span style="font-size: 32px; color: #10b981;">✓</span>
+          </div>
+          <h2 style="font-size: 24px; font-weight: bold; color: #111827; margin-bottom: 12px;">Appointment Confirmed!</h2>
+        </div>
+
+        <!-- Appointment Details -->
+        <div style="padding: 16px; background-color: #f9fafb; border-radius: 8px;">
+          <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Appointment Details:</h3>
+          <p style="margin: 4px 0;"><strong>Doctor:</strong> ${doctor.name}</p>
+          <p style="margin: 4px 0;"><strong>Specialization:</strong> ${doctor.specialization}</p>
+          <p style="margin: 4px 0;"><strong>Date:</strong> ${date}</p>
+          <p style="margin: 4px 0;"><strong>Time:</strong> ${time}</p>
+          <p style="margin: 4px 0;"><strong>Patient:</strong> ${patientName}</p>
+        </div>
+
+        <!-- Footer -->
+        <p style="margin-top: 20px; font-size: 14px; color: #6b7280; text-align: center;">
+          Thank you for using <strong>MediCare</strong>. We look forward to seeing you!
+        </p>
+      </div>
+      `;
+
     await sendEmail({
       to: patientEmail,
       subject: 'Appointment Confirmation',
-      text: `Hi ${patientName},\n\nYour appointment with ${doctor.name} is confirmed on ${date} at ${time}.\n\nThanks,\nMediCare Team`
+      html: emailHtml,
     });
+
 
     res.status(201).json({ message: 'Appointment booked successfully', appointment });
   } catch (err) {
