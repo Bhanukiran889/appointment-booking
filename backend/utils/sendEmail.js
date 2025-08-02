@@ -11,7 +11,7 @@ const sendEmail = async ({ to, subject, text }) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+       from: `"Hospicat" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       text
