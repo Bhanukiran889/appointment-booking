@@ -4,4 +4,7 @@ const { bookAppointment } = require('../controllers/appointmentController');
 
 router.post('/', bookAppointment);
 
+// GET: View all appointments (optional for now)
+router.get('/', getAllAppointments);
+
 module.exports = router;

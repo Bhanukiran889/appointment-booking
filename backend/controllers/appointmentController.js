@@ -2,6 +2,7 @@ const Appointment = require('../models/Appointment');
 const Doctor = require('../models/Doctor');
 const sendEmail = require('../utils/sendEmail');
 
+// POST: Book appointment
 const bookAppointment = async (req, res) => {
   try {
     const { doctorId, patientName, email, date, time } = req.body;
@@ -19,7 +20,7 @@ const bookAppointment = async (req, res) => {
 
     await appointment.save();
 
-    // Send email
+    // Send email confirmation
     await sendEmail({
       to: email,
       subject: 'Appointment Confirmation',
@@ -32,4 +33,14 @@ const bookAppointment = async (req, res) => {
   }
 };
 
-module.exports = { bookAppointment };
+// GET: All appointments (optional, useful for admin/testing)
+const getAllAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find().populate('doctorId', 'name specialization');
+    res.json(appointments);
+  } catch (err) {
+    res.status(500).json({ message: 'Fetching appointments failed', error: err.message });
+  }
+};
+
+module.exports = { bookAppointment, getAllAppointments };
