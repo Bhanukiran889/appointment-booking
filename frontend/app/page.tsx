@@ -1,41 +1,43 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import DoctorCard from '@/components/DoctorCard';
+import { fetchDoctors } from '@/api/doctors';
 
-const sampleDoctors = [
-  {
-    id: '1',
-    name: 'Dr. Sarah Johnson',
-    specialization: 'Cardiologist',
-    image: 'https://readdy.ai/api/search-image?query=Professional%20female%20doctor%20in%20white%20coat%2C%20warm%20smile%2C%20medical%20office%20background%2C%20natural%20lighting%2C%20modern%20healthcare%20setting&width=200&height=200&seq=doctor1&orientation=squarish',
-    status: 'Available' as const,
-    rating: 4.9,
-    experience: '15+ years'
-  },
-  {
-    id: '2',
-    name: 'Dr. Michael Chen',
-    specialization: 'Dermatologist',
-    image: 'https://readdy.ai/api/search-image?query=Professional%20male%20doctor%20in%20white%20coat%2C%20confident%20expression%2C%20clean%20medical%20facility%20background%2C%20bright%20lighting%2C%20healthcare%20professional&width=200&height=200&seq=doctor2&orientation=squarish',
-    status: 'Available' as const,
-    rating: 4.8,
-    experience: '12+ years'
-  },
-  {
-    id: '3',
-    name: 'Dr. Emily Rodriguez',
-    specialization: 'Pediatrician',
-    image: 'https://readdy.ai/api/search-image?query=Friendly%20female%20pediatric%20doctor%20in%20white%20coat%2C%20kind%20smile%2C%20colorful%20children%20hospital%20background%2C%20welcoming%20atmosphere%2C%20child-friendly%20medical%20environment&width=200&height=200&seq=doctor3&orientation=squarish',
-    status: 'On Leave' as const,
-    rating: 4.7,
-    experience: '8+ years'
-  }
-];
+type Doctor = {
+  _id: string;
+  name: string;
+  specialization: string;
+  image: string;
+  status: 'Available' | 'On Leave';
+  rating: number;
+  experience: string;
+};
+
 
 export default function Home() {
+const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true)
+
+
+   useEffect(() => {
+    async function loadDoctors() {
+      try {
+        const data = await fetchDoctors();
+        setDoctors(data);
+      } catch (error) {
+        console.error('Error loading doctors:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadDoctors();
+  }, []);
+
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -86,11 +88,15 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {sampleDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} {...doctor} />
-            ))}
-          </div>
+           {loading ? (
+            <p className="text-center text-gray-500">Loading doctors...</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {doctors.map((doctor) => (
+                <DoctorCard key={doctor._id} {...doctor} />
+              ))}
+            </div>
+          )}
           
           <div className="text-center">
             <Link 

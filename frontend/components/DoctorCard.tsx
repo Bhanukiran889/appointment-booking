@@ -4,7 +4,7 @@
 import Link from 'next/link';
 
 interface DoctorCardProps {
-  id: string;
+  _id: string;
   name: string;
   specialization: string;
   image: string;
@@ -13,7 +13,7 @@ interface DoctorCardProps {
   experience?: string;
 }
 
-export default function DoctorCard({ id, name, specialization, image, status, rating = 4.8, experience = "10+ years" }: DoctorCardProps) {
+export default function DoctorCard({ _id, name, specialization, image, status, rating = 4.8, experience = "10+ years" }: DoctorCardProps) {
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-100">
       <div className="flex items-center mb-4">
@@ -50,7 +50,7 @@ export default function DoctorCard({ id, name, specialization, image, status, ra
       </div>
       
       <Link 
-        href={`/doctor/${id}`}
+        href={`/doctor/${_id}`}
         className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium text-center block whitespace-nowrap cursor-pointer transition-colors"
       >
         View Profile
