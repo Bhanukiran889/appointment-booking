@@ -12,7 +12,15 @@ const doctorSchema = new mongoose.Schema({
   location: String,
   languages: [String],
   consultationFee: String,
-  availability: Object // e.g., { Monday: ['9:00 AM', '10:00 AM'], ... }
+  availability: {
+    Monday: [String],
+    Tuesday: [String],
+    Wednesday: [String],
+    Thursday: [String],
+    Friday: [String],
+    Saturday: [String],
+    Sunday: [String]
+  }
 });
 
 module.exports = mongoose.model('Doctor', doctorSchema);
