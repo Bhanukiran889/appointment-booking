@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import DoctorProfile from './DoctorProfile';
 import { fetchDoctors } from '@/api/doctors';

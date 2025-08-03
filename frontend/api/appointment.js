@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'https://appointment-booking-mc8g.onrender.com/api';
 
 export async function bookAppointment(data) {
   const res = await fetch(`${BASE_URL}/appointments`, {
