@@ -95,6 +95,64 @@ npm run dev
   - Nodemailer
 
 ---
+## Backend Setup
+
+### MongoDB Connection
+
+MongoDB is used to store doctor and appointment data. You’ll need a MongoDB URI (can use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)).
+
+In the `.env` file:
+
+```
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/doctorApp
+EMAIL_USER=yourappemail@gmail.com
+EMAIL_PASS=your_app_password
+```
+
+Make sure to:
+
+- Replace `<username>` and `<password>` with real credentials.
+- Enable **"Less secure app access"** in your Gmail or generate an **App Password** if 2FA is on.
+
+### Running the backend
+
+```bash
+cd backend
+npm run dev
+```
+
+Make sure MongoDB is connected before testing routes.
+
+---
+
+### Seeding Dummy Data
+
+You can populate the database with sample doctors using the following script:
+
+```bash
+node seedDoctors.js
+```
+
+This file reads dummy data and pushes it into your MongoDB doctors collection. Use this only for local development/testing.
+
+---
+
+## API Endpoints
+
+### Doctor Routes
+
+- `GET /api/doctors` → Get all doctors
+- `GET /api/doctors/:id` → Get doctor by ID
+
+### Appointment Routes
+
+- `POST /api/appointments` → Book an appointment (sends confirmation email)
+- `GET /api/appointments` → [Optional: fetch all appointments]
+- `PUT /api/appointments/:id` → [Optional: update appointment status]
+
+All POST and PUT routes expect JSON data in the body.
+
+---
 
 ## Improvements with More Time
 
