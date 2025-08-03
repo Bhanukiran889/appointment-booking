@@ -1,3 +1,5 @@
+'use client'
+
 import DoctorProfile from './DoctorProfile';
 import { fetchDoctors } from '@/api/doctors';
 
@@ -11,7 +13,7 @@ export async function generateStaticParams() {
   }
 }
 
-// ✅ Make the page component async (required for dynamic routes in app/)
+// Make the page component async (required for dynamic routes in app/)
 export default async function DoctorPage({ params }: { params: { id: string } }) {
   return <DoctorProfile doctorId={params.id} />;
 }
