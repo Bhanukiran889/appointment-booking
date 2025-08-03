@@ -98,7 +98,7 @@ export default function DoctorProfile({ doctorId }: DoctorProfileProps) {
             </div>
           </div>
         </div>
-
+        {/* about section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white rounded-xl shadow-sm p-8">
@@ -115,7 +115,7 @@ export default function DoctorProfile({ doctorId }: DoctorProfileProps) {
                 </div>
               </div>
             </div>
-
+            {/* patient Reviews */}
             <div className="bg-white rounded-xl shadow-sm p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Patient Reviews</h2>
               <p className="text-gray-500">(Reviews section can be integrated later from backend)</p>

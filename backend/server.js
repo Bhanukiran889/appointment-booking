@@ -14,6 +14,10 @@ app.use(express.json());
 // Routes
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
