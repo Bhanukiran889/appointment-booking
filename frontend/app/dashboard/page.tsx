@@ -14,7 +14,7 @@ interface Appointment {
   prescription?: string;
   attended?: boolean;
 }
-
+// use dummy data for dashboard dymamic features are implimented later from the backend
 const mockAppointments: Appointment[] = [
   {
     id: '1',
