@@ -123,7 +123,7 @@ function AppointmentFormContent() {
 
     if (isSubmitted) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-gray-50" data-testid="confirmation-popup">
                 <Header />
                 <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                     <div className="bg-white rounded-xl shadow-sm p-8 text-center">
@@ -175,7 +175,7 @@ function AppointmentFormContent() {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Book Appointment</h1>
                     <p className="text-gray-600">Fill in the details below to schedule your appointment</p>
                 </div>
-
+                <div data-testid="appointment-form">
                 <form id="appointment-form" onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-8">
                     {/* Doctor Selection */}
                     <div className="mb-6">
@@ -341,6 +341,7 @@ function AppointmentFormContent() {
                         By booking this appointment, you agree to our terms of service and privacy policy.
                     </p>
                 </form>
+                </div>
             </div>
         </div>
     );
